@@ -1,0 +1,66 @@
+/* ----------- RESET BASE ----------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove margens padrões de textos e listas */
+body,
+h1, h2, h3, h4, h5, h6,
+p, figure, blockquote,
+dl, dd {
+  margin: 0;
+}
+
+/* Remove estilo de listas sem classe */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Define altura mínima da tela */
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+  text-rendering: optimizeSpeed;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Imagens nunca maiores que o container */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Remove estilos padrão de inputs/buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* Remove animações e transições para usuários com preferências reduzidas */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

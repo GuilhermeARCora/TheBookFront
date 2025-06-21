@@ -1,1 +1,97 @@
-<p>header works!</p>
+
+<header class="container rounded-4 py-4 shadow-sm mb-2 mt-1">
+
+  <div class="d-flex align-items-center text-center justify-content-evenly">
+
+      <div>
+        <a
+          routerLink="/"
+          style="cursor: pointer;"
+          class="d-flex align-items-center text-decoration-none"
+          matTooltip="Página Inicial"
+          matTooltipPosition="below"
+          matTooltipHideDelay="500"
+          id="logo"
+        >
+          <p class="fw-bolder fs-2 text-dark hide">The Book</p>
+          <img src="assets/img/logo.webp" alt="Logo" width="70px" height="auto" class="">
+        </a>
+      </div>
+
+      <div>
+
+        <div *ngIf="isUserLoggedIn()" class="d-flex gap-2">
+          <button
+              class="btn btn-lg btn-outline-dark flex-fill fs-5"
+              (click)="redirectMeuLivro()"
+              id="botao-meu-livro"
+          >
+              Meu Livro
+          </button>
+
+            <div class="dropdown">
+              <button
+                class="btn btn-lg rounded-4 btn-dark d-flex dropdown-center"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                id="botao-usuario">
+                <mat-icon class="fs-2 d-flex align-items-center w-100 py-3">account_circle</mat-icon>
+              </button>
+                <ul class="dropdown-menu">
+
+                  <li>
+                    <a
+                      class="dropdown-item d-flex align-items-center gap-1"
+                      (click)="redirectCriarReceita()"
+                      style="cursor: pointer;"
+                      id="link-criar-receita"
+                    >
+                      <mat-icon>add</mat-icon>
+                      Criar Receita
+                    </a>
+                  </li>
+
+                  <li><hr class="dropdown-divider"></li>
+
+                  <li>
+                    <a
+                      class="dropdown-item d-flex align-items-center gap-1"
+                      (click)="logout()"
+                      style="cursor: pointer;"
+                      id="link-logout"
+                    >
+                        <mat-icon>logout</mat-icon>
+                        Logout
+                    </a>
+                  </li>
+
+                </ul>
+            </div>
+
+        </div>
+
+        <div *ngIf="!isUserLoggedIn()" class="d-flex gap-2 ms-5 ms-md-0">
+          <button
+            class="btn btn-lg btn-outline-dark d-flex align-items-center gap-1 responsive-auth-btn"
+            routerLink="/login"
+            id="botao-login"
+          >
+          <mat-icon>login</mat-icon>
+            <p class="hide" >Login</p>
+          </button>
+          <button
+            class="btn btn-lg btn-warning d-flex align-items-center gap-1 responsive-auth-btn"
+            routerLink="/register"
+            id="botao-cadastar"
+          >
+            <mat-icon>person_add</mat-icon>
+            <p class="hide" >Cadastre-se</p>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+</header>

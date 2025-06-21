@@ -1,0 +1,15 @@
+.hide{
+  display: block;
+}
+
+@media (max-width: 576px) {
+  .responsive-auth-btn {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+
+  .hide{
+    display: none;
+  }
+
+}

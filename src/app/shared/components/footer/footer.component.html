@@ -1,1 +1,39 @@
-<p>footer works!</p>
+<footer class="my-3">
+  <hr>
+
+  <div class="container">
+
+    <div class="d-flex flex-column flex-md-row align-items-center justify-content-between text-center gap-1 gap-md-0">
+
+      <a
+        routerLink="/"
+        style="cursor: pointer;"
+        class="text-decoration-none d-flex align-items-center gap-1 order-0"
+        matTooltip="Página Inicial"
+        matTooltipPosition="above"
+        matTooltipHideDelay="500"
+        id="logo"
+      >
+        <img src="assets/img/logo.webp" alt="Logo" width="30px" height="auto" />
+        <p class="text-black fw-bolder m-0">The Book</p>
+      </a>
+
+      <!-- Copyright (middle on md+, last on sm) -->
+      <p class="m-0 order-2 order-md-1 text-md-center">
+        &copy; 2025 The Book. Todos os direitos reservados.
+      </p>
+
+      <!-- Sobre nós -->
+      <p
+        routerLink="/about-us"
+        style="cursor: pointer;"
+        class="fw-semibold m-0 order-1 order-md-2"
+      >
+        Sobre nós
+      </p>
+
+    </div>
+
+  </div>
+
+</footer>

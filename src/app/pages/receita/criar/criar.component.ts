@@ -65,10 +65,6 @@ export class CriarComponent implements OnInit {
 
     };
 
-    reset(): void{
-      this.createReceitaForm.reset();
-    };
-
     goBack(): void {
       if (window.history.length > 1) {
         this.location.back();

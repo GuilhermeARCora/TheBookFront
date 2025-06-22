@@ -1,1 +1,102 @@
-<p>login works!</p>
+<section class="container-fluid d-flex justify-content-center align-items-center vh-100">
+
+  <mat-card class="d-flex align-items-center m-auto h-auto p-5 shadow-lg position-relative" style="max-width: 600px; width: 100%;">
+
+    <div class="d-flex justify-content-start">
+      <img src="assets/img/logo.webp" alt="logo" width="50px" height="auto" class="position-absolute top-0 start-0 m-3">
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="d-flex flex-column gap-1">
+
+      <mat-card-header class="d-flex justify-content-center text-center pb-3">
+          <mat-card-title class="fs-3 fw-bold">BEM VINDO</mat-card-title>
+          <mat-card-subtitle class="fs-5 fw-bolder" >FAÇA LOGIN!</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content class="d-flex flex-column gap-2">
+
+        <mat-form-field appearance="outline" floatLabel="always">
+           <input
+             type="email"
+             formControlName="email"
+             id="field-email"
+             matInput
+             placeholder="Insira seu E-mail"
+            >
+           <mat-label>E-mail</mat-label>
+
+            <mat-error *ngIf="hasFormError(loginForm,'email','required')" >
+                E-mail é <strong>obrigatório!</strong>
+            </mat-error>
+
+            <mat-error *ngIf="!hasFormError(loginForm,'email','required') && hasFormError(loginForm,'email','email')" >
+                Insira um E-mail <strong>válido!</strong>
+            </mat-error>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+                <input
+                  [type]="hide() ? 'password' : 'text'"
+                  id="field-senha"
+                  formControlName="senha"
+                  matInput
+                  placeholder="Insira sua Senha"
+
+                >
+                  <button
+                    matSuffix
+                    type="button"
+                    (click)="clickEvent($event)"
+                    [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide()"
+                    style="margin-right: 0.4em;"
+                  >
+                    <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
+                  <mat-label>Senha</mat-label>
+                  <mat-error *ngIf="hasFormError(loginForm,'senha','required')" >
+                      Senha é <strong>obrigatório!</strong>
+                  </mat-error>
+        </mat-form-field>
+
+      </mat-card-content>
+
+      <mat-card-actions class="d-flex gap-3 justify-content-center">
+
+        <button
+           class="btn btn-lg btn-success"
+           type="submit"
+           id="button-login"
+           [disabled]="loginForm.invalid"
+        >
+          LOGIN
+        </button>
+
+        <button
+          class="btn btn-lg btn-danger"
+          type="button"
+          id="button-inicio"
+          (click)="redirectToInicio()"
+        >
+          INÍCIO
+        </button>
+
+      </mat-card-actions>
+
+      <mat-card-footer>
+          <a
+            routerLink="/register"
+            id="link-registre-se"
+            class="text-decoration-none text-black"
+          >
+            Ainda não possui uma conta? <strong>Registre-se</strong>
+          </a>
+      </mat-card-footer>
+
+    </form>
+
+  </mat-card>
+
+</section>
+

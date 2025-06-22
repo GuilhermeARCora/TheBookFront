@@ -1,1 +1,165 @@
-<p>register works!</p>
+<div class="container-fluid d-flex justify-content-center align-items-center vh-100">
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="d-flex d-inline-block">
+
+    <mat-card class="d-flex align-items-center m-auto h-auto p-5 shadow-lg gap-2">
+
+      <div class="d-flex justify-content-start">
+        <a routerLink="/" style="cursor: pointer;">
+          <img src="assets/img/logo.webp" alt="logo" width="50px" height="auto" class="position-absolute top-0 start-0 m-3">
+        </a>
+      </div>
+
+       <mat-card-header class="mb-4">
+          <div class="d-flex flex-column gap-2 text-center w-100">
+            <mat-card-title class="fw-bold fs-2">BEM VINDO!</mat-card-title>
+            <mat-card-subtitle class="fw-semibold fs-4">FAÇA SEU CADASTRO</mat-card-subtitle>
+          </div>
+       </mat-card-header>
+
+
+        <mat-card-content class="d-flex flex-column gap-4" >
+
+        <div class ="row">
+
+          <div class="col">
+              <mat-form-field floatLabel="always" appearance="outline" class="w-100 mb-2 mb-md-0">
+
+                <input
+                  type="text"
+                  id="email"
+                  formControlName="email"
+                  matInput
+                  placeholder="Insira seu E-mail"
+                >
+                  <mat-label>E-mail</mat-label>
+                  <mat-hint>exemplo&#64;exemplo.com</mat-hint>
+
+                  <mat-error *ngIf="hasFormError(registerForm,'email','required')">
+                      E-mail é <strong>obrigatório!</strong>
+                  </mat-error>
+
+                  <mat-error *ngIf="hasFormError(registerForm,'email','email')">
+                      Insira um E-mail <strong>válido!</strong>
+                  </mat-error>
+
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+              <mat-form-field floatLabel="always" appearance="outline" class="w-100" >
+
+                <input
+                  type="email"
+                  id="confirmeEmail"
+                  formControlName="confirmeEmail"
+                  matInput
+                  placeholder="Confirme seu E-mail"
+                >
+                  <mat-label>Confirmação - E-mail</mat-label>
+
+                  <mat-error *ngIf="hasFormError(registerForm,'confirmeEmail','required')">
+                      E-mail é <strong>obrigatório!</strong>
+                  </mat-error>
+
+                  <mat-error *ngIf="!hasFormError(registerForm,'confirmeEmail','required') && hasFormError(registerForm,'confirmeEmail','matchFieldsValidator')">
+                      Os E-mails não são <strong>iguais!</strong>
+                  </mat-error>
+
+              </mat-form-field>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+          <div class="col">
+              <mat-form-field floatLabel="always" appearance="outline" class="w-100">
+
+                <input
+                  [type]="hide() ? 'password' : 'text'"
+                  id="senha"
+                  formControlName="senha"
+                  matInput
+                  placeholder="Insira sua Senha"
+                >
+                  <button
+                    matSuffix
+                    (click)="clickEvent($event)"
+                    [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide()"
+                    style="margin-right: 0.4em;"
+                  >
+                    <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
+
+                  <mat-label>Senha</mat-label>
+
+                  <mat-error *ngIf="hasFormError(registerForm,'senha','required')">
+                      Senha é <strong>obrigatório!</strong>
+                  </mat-error>
+
+              </mat-form-field>
+          </div>
+
+          <div class="col">
+              <mat-form-field floatLabel="always" appearance="outline" class="w-100" >
+
+                <input
+                  [type]="hide() ? 'password' : 'text'"
+                  id="confirmeSenha"
+                  formControlName="confirmeSenha"
+                  matInput
+                  placeholder="Confirme sua Senha"
+                >
+                  <button
+                    mat-icon-button
+                    matSuffix
+                    type="button"
+                    (click)="clickEvent($event)"
+                    [attr.aria-label]="'Hide confirmePassword'"
+                    [attr.aria-pressed]="hide()"
+                    style="margin-right: 0.4em;"
+                  >
+                    <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
+
+                  <mat-label>Confirmação - Senha</mat-label>
+
+                  <mat-error *ngIf="hasFormError(registerForm,'confirmeSenha','required')">
+                      Confirmação é <strong>obrigatório!</strong>
+                  </mat-error>
+
+                  <mat-error *ngIf="!hasFormError(registerForm,'confirmeSenha','required') && hasFormError(registerForm,'confirmeSenha','matchFieldsValidator')">
+                      As Senhas não são <strong>iguais!</strong>
+                  </mat-error>
+
+              </mat-form-field>
+          </div>
+
+        </div>
+
+        </mat-card-content>
+
+        <mat-card-actions>
+            <button
+                class="btn btn-success px-5 py-3"
+                type="submit"
+                id="button-cadastro"
+                [disabled]="registerForm.invalid"
+                >
+                <strong>CADASTRAR</strong>
+            </button>
+        </mat-card-actions>
+
+        <mat-card-footer>
+            <p>
+              Ja possui uma Conta? Faça <a routerLink="/login" class="text-decoration-none text-reset fw-medium" style="cursor: pointer;"><strong>LOGIN</strong></a>
+            </p>
+        </mat-card-footer>
+
+    </mat-card>
+
+  </form>
+
+</div>

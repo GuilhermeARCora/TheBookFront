@@ -1,9 +1,10 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CardComponent } from "../../shared/components/card/card.component";
 
 @Component({
   selector: 'app-meu-livro',
-  imports: [],
+  imports: [CardComponent],
   templateUrl: './meu-livro.component.html',
   styleUrl: './meu-livro.component.scss'
 })

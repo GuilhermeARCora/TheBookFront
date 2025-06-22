@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { ReceitaComponent } from './pages/receita/receita.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 export const routes: Routes = [
@@ -28,19 +27,22 @@ export const routes: Routes = [
     path:'about-us',
     loadComponent: () => import('./pages/about-us/about-us.component').then(c => c.AboutUsComponent)
   },
-  {
-    path:'receita',
-    component:ReceitaComponent,
-    children:[
-       {
-        path:'create-receita/:id',
-        loadComponent: () => import('./pages/receita/criar/criar.component').then(c => c.CriarComponent)
-       },
-       {
-        path:'edit-receita/:id',
-        loadComponent: () => import('./pages/receita/editar/editar.component').then(c => c.EditarComponent)
-       }
-    ]
+ {
+  path: 'receita',
+  children: [
+    {
+      path: 'ver-receita/:id',
+      loadComponent: () => import('./pages/receita/receita.component').then(c => c.ReceitaComponent)
+    },
+    {
+      path: 'create-receita/:id',
+      loadComponent: () => import('./pages/receita/criar/criar.component').then(c => c.CriarComponent)
+    },
+    {
+      path: 'edit-receita/:id',
+      loadComponent: () => import('./pages/receita/editar/editar.component').then(c => c.EditarComponent)
+    }
+   ]
   },
   {
     path:'meu-livro/:id',

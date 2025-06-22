@@ -2,7 +2,9 @@ import { TestBed } from '@angular/core/testing';
 
 import { ToasterService } from './toaster.service';
 
-describe('ToasterService', () => {
+import Swal from 'sweetalert2';
+
+fdescribe('ToasterService', () => {
   let service: ToasterService;
 
   beforeEach(() => {

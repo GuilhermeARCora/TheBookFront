@@ -35,12 +35,12 @@ export const routes: Routes = [
       loadComponent: () => import('./pages/receita/receita.component').then(c => c.ReceitaComponent)
     },
     {
-      path: 'create-receita/:id',
+      path: 'create-receita',
       loadComponent: () => import('./pages/receita/criar/criar.component').then(c => c.CriarComponent)
     },
     {
       path: 'edit-receita/:id',
-      loadComponent: () => import('./pages/receita/editar/editar.component').then(c => c.EditarComponent)
+      loadComponent: () => import('./pages/receita/criar/criar.component').then(c => c.CriarComponent)
     }
    ]
   },

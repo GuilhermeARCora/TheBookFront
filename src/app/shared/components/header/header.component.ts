@@ -22,8 +22,7 @@ export class HeaderComponent {
   };
 
   redirectCriarReceita(): void{
-    const id = 123;
-    this.router.navigate(['/receita/create-receita', id])
+    this.router.navigate(['/receita/create-receita'])
   };
 
   logout(): void{

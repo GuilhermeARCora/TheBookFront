@@ -1,1 +1,75 @@
-<p>criar works!</p>
+
+<section class="container mt-3" >
+
+    <form (ngSubmit)="onSubmit()" [formGroup]="createReceitaForm" >
+
+      <div class="d-flex flex-column gap-4">
+
+        <h1>{{titulo()}}</h1>
+
+        <mat-form-field floatLabel="always" appearance="outline" class="w-100 w-lg-50">
+          <input
+            type="text"
+            matInput
+            formControlName="titulo"
+            placeholder="Insira o título da Receita"
+            id="field-titulo"
+          >
+          <mat-label>Título</mat-label>
+          <mat-error *ngIf="hasFormError(createReceitaForm,'titulo','required')">
+            Título é <strong>obrigatório!</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field floatLabel="always" appearance="outline">
+           <textarea
+            matInput
+            formControlName="descricao"
+            placeholder="Insira a descrição da Receita"
+            id="field-descricao"
+            rows="5"
+          ></textarea>
+          <mat-label>Descricao</mat-label>
+          <mat-error *ngIf="hasFormError(createReceitaForm,'descricao','required')">
+            Descricao é <strong>obrigatório!</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <div class="d-flex justify-content-between">
+
+            <button
+              class="btn btn-lg responsive-sm-btn btn-warning text-white"
+              id="button-voltar"
+              (click)="goBack()"
+            >
+              VOLTAR
+            </button>
+
+            <div class="d-flex gap-2">
+
+                <button
+                  class="btn btn-lg responsive-sm-btn btn-danger"
+                  id="button-limpar"
+                  (click)="reset()"
+                >
+                  LIMPAR
+                </button>
+
+                <button
+                  class="btn btn-lg responsive-sm-btn btn-success"
+                  type="submit"
+                  id="button-cadastrar"
+                  [disabled]="!createReceitaForm.valid"
+                >
+                  CADASTRAR
+                </button>
+
+            </div>
+
+        </div>
+
+      </div>
+
+    </form>
+
+</section>

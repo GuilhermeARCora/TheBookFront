@@ -3,6 +3,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
 
@@ -36,17 +37,20 @@ export const routes: Routes = [
     },
     {
       path: 'create-receita',
-      loadComponent: () => import('./pages/receita/criar/criar.component').then(c => c.CriarComponent)
+      loadComponent: () => import('./pages/receita/criar/criar.component').then(c => c.CriarComponent),
+      canActivate: [AuthGuard]
     },
     {
       path: 'edit-receita/:id',
-      loadComponent: () => import('./pages/receita/criar/criar.component').then(c => c.CriarComponent)
+      loadComponent: () => import('./pages/receita/criar/criar.component').then(c => c.CriarComponent),
+      canActivate: [AuthGuard]
     }
    ]
   },
   {
     path:'meu-livro/:id',
-    loadComponent: () => import('./pages/meu-livro/meu-livro.component').then(c => c.MeuLivroComponent)
+    loadComponent: () => import('./pages/meu-livro/meu-livro.component').then(c => c.MeuLivroComponent),
+    canActivate: [AuthGuard]
   },
   {
     path:'not-found',

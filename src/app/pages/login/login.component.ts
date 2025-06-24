@@ -8,6 +8,8 @@ import { Router, RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { hasFormError } from '../../shared/utils/helpers';
 import { ToasterService } from '../../core/services/swal/toaster.service';
+import { AuthService } from '../../core/services/auth/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -31,6 +33,7 @@ export class LoginComponent implements OnInit {
   hasFormError = hasFormError;
   toast = inject(ToasterService);
   router = inject(Router);
+  authService = inject(AuthService);
 
   ngOnInit(): void {
     this.formBuild();
@@ -38,12 +41,31 @@ export class LoginComponent implements OnInit {
 
   formBuild(): void{
     this.loginForm = new FormGroup ({
-      email: new FormControl('', [Validators.required, Validators.email]),
+      username: new FormControl('', [Validators.required]),
       senha: new FormControl('', Validators.required)
     })
   };
 
   onSubmit():void{
+
+    const data = this.loginForm.value;
+
+    if(this.loginForm.invalid) return ;
+
+    this.authService.login(data).subscribe({
+      next:(res) => {
+        this.router.navigateByUrl('/').then(()=>{
+          this.toast.success("Autenticado com sucesso!")
+        });
+      },
+      error:() => {
+        Swal.fire({
+          title: "Falha no login!",
+          text: "Tente novamente!",
+          icon: "error"
+        })
+      }
+    })
 
   };
 

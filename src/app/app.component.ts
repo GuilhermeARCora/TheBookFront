@@ -4,6 +4,7 @@ import { HeaderComponent } from "./shared/components/header/header.component";
 import { FooterComponent } from "./shared/components/footer/footer.component";
 import { filter } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { AuthService } from './core/services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ import { CommonModule } from '@angular/common';
 export class AppComponent implements OnInit {
 
   router = inject(Router);
+  authService = inject(AuthService);
 
   hideHeader = signal<boolean>(true);
   hideFooter = signal<boolean>(true);
@@ -26,6 +28,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
 
+    this.authService.initFromStorage();
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {

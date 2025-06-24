@@ -20,19 +20,15 @@
         <mat-form-field appearance="outline" floatLabel="always">
            <input
              type="email"
-             formControlName="email"
+             formControlName="username"
              id="field-email"
              matInput
-             placeholder="Insira seu E-mail"
+             placeholder="Insira seu E-mail ou CPF"
             >
-           <mat-label>E-mail</mat-label>
+           <mat-label>CPF ou E-mail</mat-label>
 
-            <mat-error *ngIf="hasFormError(loginForm,'email','required')" >
-                E-mail é <strong>obrigatório!</strong>
-            </mat-error>
-
-            <mat-error *ngIf="!hasFormError(loginForm,'email','required') && hasFormError(loginForm,'email','email')" >
-                Insira um E-mail <strong>válido!</strong>
+            <mat-error *ngIf="hasFormError(loginForm,'username','required')" >
+                Este campo é <strong>obrigatório!</strong>
             </mat-error>
 
         </mat-form-field>

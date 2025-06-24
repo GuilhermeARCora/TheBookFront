@@ -4,7 +4,7 @@ import { ToasterService } from './toaster.service';
 
 import Swal from 'sweetalert2';
 
-fdescribe('ToasterService', () => {
+describe('ToasterService', () => {
   let service: ToasterService;
 
   beforeEach(() => {

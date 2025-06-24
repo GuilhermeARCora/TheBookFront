@@ -1,21 +1,20 @@
-export interface AuthUser {
-  email: string
-};
 export interface LoginPayload {
-  email:string,
+  username:string,
   senha:string
 };
 export interface RegisterPayload {
+  nome:string,
+  documento:string,
   email:string,
   senha:string,
-  confirmeSenha?:string,
-  confirmeEmail?:string
+  confirmaSenha:string
 };
 
 export interface LoginResponse {
-  token: string
+  access_token: string
 };
 
-export interface RegisterResponse {
-  user : AuthUser
+export interface GetUserNameResponse {
+  nome: string
 };
+

@@ -1,22 +1,15 @@
 import { HttpInterceptorFn } from '@angular/common/http';
-import { HttpRequest, HttpHandlerFn } from '@angular/common/http';
 
-export const AuthInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn) => {
-  const token = localStorage.getItem('jwtToken');
+export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
+  const token = localStorage.getItem('access_token');
 
-  const isPublic = ['/login', '/register'].some(path => req.url.includes(path));
-
-  if (isPublic) {
-    return next(req);
-  };
-
-  if (token) {
-    const authReq = req.clone({
+  if (token && !req.url.includes('/permitted/')) {
+    const cloned = req.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`
       }
     });
-    return next(authReq);
+    return next(cloned);
   }
 
   return next(req);

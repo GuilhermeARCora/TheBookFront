@@ -1,1 +1,15 @@
-<p>home works!</p>
+
+<section class="container d-flex justify-content-center align-items-center flex-column">
+
+  <h1 class="blur-container">Bem vindo {{authService.userName() || 'Visitante'}}!</h1>
+
+  <div>
+    <app-card></app-card>
+  </div>
+
+  <div>
+    <button>Veja suas receitas</button>
+    <button *ngIf="isUserLoggedIn" >Crie suas receitas</button>
+  </div>
+
+</section>

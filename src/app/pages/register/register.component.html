@@ -18,7 +18,35 @@
        </mat-card-header>
 
 
-        <mat-card-content class="d-flex flex-column gap-4" >
+        <mat-card-content class="d-flex flex-column gap-3" >
+
+        <div class="row">
+
+          <div class="col">
+
+            <mat-form-field appearance="outline" floatLabel="always" class="w-100 mb-2 mb-md-0">
+              <input
+                type="text"
+                matInput
+                formControlName="nome"
+                placeholder="Insira seu nome"
+                id="field-nome"
+              >
+              <mat-label>Nome</mat-label>
+
+              <mat-error *ngIf="hasFormError(registerForm, 'nome', 'required')">
+                Nome é <strong>obrigatório!</strong>
+              </mat-error>
+
+              <mat-error *ngIf="registerForm.get('nome')?.hasError('serverError')">
+                    {{ errorMessages['nome'] }}
+              </mat-error>
+
+            </mat-form-field>
+
+          </div>
+
+        </div>
 
         <div class ="row">
 
@@ -43,6 +71,10 @@
                       Insira um E-mail <strong>válido!</strong>
                   </mat-error>
 
+                  <mat-error *ngIf="registerForm.get('email')?.hasError('serverError')">
+                        {{ errorMessages['email'] }}
+                  </mat-error>
+
               </mat-form-field>
             </div>
 
@@ -50,20 +82,24 @@
               <mat-form-field floatLabel="always" appearance="outline" class="w-100" >
 
                 <input
-                  type="email"
-                  id="confirmeEmail"
-                  formControlName="confirmeEmail"
+                  type="text"
+                  id="documento"
+                  formControlName="documento"
                   matInput
-                  placeholder="Confirme seu E-mail"
+                  placeholder="Insira seu CPF"
                 >
-                  <mat-label>Confirmação - E-mail</mat-label>
+                  <mat-label>Documento</mat-label>
 
-                  <mat-error *ngIf="hasFormError(registerForm,'confirmeEmail','required')">
-                      E-mail é <strong>obrigatório!</strong>
+                  <mat-error *ngIf="hasFormError(registerForm,'documento','required')">
+                      CPF é <strong>obrigatório!</strong>
                   </mat-error>
 
-                  <mat-error *ngIf="!hasFormError(registerForm,'confirmeEmail','required') && hasFormError(registerForm,'confirmeEmail','matchFieldsValidator')">
-                      Os E-mails não são <strong>iguais!</strong>
+                  <mat-error *ngIf="!hasFormError(registerForm,'documento','required') && hasFormError(registerForm,'documento','cpfInvalid')">
+                      Insira um CPF <strong>válido!</strong>
+                  </mat-error>
+
+                  <mat-error *ngIf="registerForm.get('documento')?.hasError('serverError')">
+                    {{ errorMessages['documento'] }}
                   </mat-error>
 
               </mat-form-field>
@@ -99,6 +135,10 @@
                       Senha é <strong>obrigatório!</strong>
                   </mat-error>
 
+                  <mat-error *ngIf="registerForm.get('senha')?.hasError('serverError')">
+                       {{ errorMessages['senha'] }}
+                  </mat-error>
+
               </mat-form-field>
           </div>
 
@@ -107,8 +147,8 @@
 
                 <input
                   [type]="hide() ? 'password' : 'text'"
-                  id="confirmeSenha"
-                  formControlName="confirmeSenha"
+                  id="confirmaSenha"
+                  formControlName="confirmaSenha"
                   matInput
                   placeholder="Confirme sua Senha"
                 >
@@ -117,7 +157,7 @@
                     matSuffix
                     type="button"
                     (click)="clickEvent($event)"
-                    [attr.aria-label]="'Hide confirmePassword'"
+                    [attr.aria-label]="'Hide confirmaPassword'"
                     [attr.aria-pressed]="hide()"
                     style="margin-right: 0.4em;"
                   >
@@ -126,12 +166,16 @@
 
                   <mat-label>Confirmação - Senha</mat-label>
 
-                  <mat-error *ngIf="hasFormError(registerForm,'confirmeSenha','required')">
+                  <mat-error *ngIf="hasFormError(registerForm,'confirmaSenha','required')">
                       Confirmação é <strong>obrigatório!</strong>
                   </mat-error>
 
-                  <mat-error *ngIf="!hasFormError(registerForm,'confirmeSenha','required') && hasFormError(registerForm,'confirmeSenha','matchFieldsValidator')">
+                  <mat-error *ngIf="!hasFormError(registerForm,'confirmaSenha','required') && hasFormError(registerForm,'confirmaSenha','matchFieldsValidator')">
                       As Senhas não são <strong>iguais!</strong>
+                  </mat-error>
+
+                  <mat-error *ngIf="registerForm.get('confirmaSenha')?.hasError('serverError')">
+                       {{ errorMessages['confirmaSenha'] }}
                   </mat-error>
 
               </mat-form-field>

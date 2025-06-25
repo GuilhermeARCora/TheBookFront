@@ -3,25 +3,44 @@
 
     <form (ngSubmit)="onSubmit()" [formGroup]="createReceitaForm" >
 
-      <div class="d-flex flex-column gap-4">
+      <div class="d-flex flex-column gap-3 ">
 
-        <h1>{{titulo()}}</h1>
+        <h1 class="blur-container">{{titulo()}}</h1>
 
-        <mat-form-field floatLabel="always" appearance="outline" class="w-100 w-lg-50">
-          <input
-            type="text"
-            matInput
-            formControlName="titulo"
-            placeholder="Insira o título da Receita"
-            id="field-titulo"
-          >
-          <mat-label>Título</mat-label>
-          <mat-error *ngIf="hasFormError(createReceitaForm,'titulo','required')">
-            Título é <strong>obrigatório!</strong>
-          </mat-error>
-        </mat-form-field>
+        <div class="d-flex justify-content-between gap-3 flex-column flex-md-row gap-md-5 blur-container">
 
-        <mat-form-field floatLabel="always" appearance="outline">
+          <mat-form-field floatLabel="always" appearance="outline" class="w-100 fw-bold">
+            <input
+              type="text"
+              matInput
+              formControlName="titulo"
+              placeholder="Insira o título da Receita"
+              id="field-titulo"
+            >
+            <mat-label>Título</mat-label>
+            <mat-error *ngIf="hasFormError(createReceitaForm,'titulo','required')">
+              Título é <strong>obrigatório!</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" floatLabel="always" class="w-100">
+            <mat-select formControlName="categoria" class="fw-bold" placeholder="Escolha uma categoria">
+              <mat-option value="Salgado">Salgado</mat-option>
+              <mat-option value="Bebida">Bebida</mat-option>
+              <mat-option value="Sobremesa">Sobremesa</mat-option>
+              <mat-option value="Fitness">Fitness</mat-option>
+            </mat-select>
+            <mat-label>Categoria</mat-label>
+
+            <mat-error *ngIf="hasFormError(createReceitaForm,'categoria','required')">
+              Categoria é <strong>obrigatório!</strong>
+            </mat-error>
+
+          </mat-form-field>
+
+        </div>
+
+        <mat-form-field floatLabel="always" appearance="outline" class="fw-bold blur-container">
            <textarea
             matInput
             formControlName="descricao"

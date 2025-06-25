@@ -26,6 +26,7 @@
              placeholder="Insira seu E-mail ou CPF"
             >
            <mat-label>CPF ou E-mail</mat-label>
+           <mat-hint>CPF somente números</mat-hint>
 
             <mat-error *ngIf="hasFormError(loginForm,'username','required')" >
                 Este campo é <strong>obrigatório!</strong>

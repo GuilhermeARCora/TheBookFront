@@ -10,6 +10,7 @@ import { hasFormError } from '../../shared/utils/helpers';
 import { ToasterService } from '../../core/services/swal/toaster.service';
 import { AuthService } from '../../core/services/auth/auth.service';
 import Swal from 'sweetalert2';
+import { LoginPayload } from '../../shared/types/auth';
 
 @Component({
   selector: 'app-login',
@@ -48,12 +49,12 @@ export class LoginComponent implements OnInit {
 
   onSubmit():void{
 
-    const data = this.loginForm.value;
+    const data = this.loginForm.value as LoginPayload;
 
     if(this.loginForm.invalid) return ;
 
     this.authService.login(data).subscribe({
-      next:(res) => {
+      next:() => {
         this.router.navigateByUrl('/').then(()=>{
           this.toast.success("Autenticado com sucesso!")
         });

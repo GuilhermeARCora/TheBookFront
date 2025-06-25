@@ -9,6 +9,7 @@ import { hasFormError } from '../../../shared/utils/helpers';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Receita } from '../../../shared/types/receita';
 import { Location } from '@angular/common';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-criar',
@@ -18,6 +19,7 @@ import { Location } from '@angular/common';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatSelectModule
   ],
   templateUrl: './criar.component.html',
   styleUrl: './criar.component.scss'
@@ -33,7 +35,7 @@ export class CriarComponent implements OnInit {
     router = inject(Router);
     receita: Receita | null = null;
 
-    titulo = signal('Crie sua Receita!');
+    titulo = signal('CRIE SUA RECEITA!');
 
     ngOnInit(): void {
       this.buildForm();
@@ -43,14 +45,15 @@ export class CriarComponent implements OnInit {
     buildForm(): void{
       this.createReceitaForm = new FormGroup({
         titulo: new FormControl('',[Validators.required]),
-        descricao: new FormControl('',[Validators.required])
+        descricao: new FormControl('',[Validators.required]),
+        categoria: new FormControl('',[Validators.required])
       })
     };
 
     isEdit(): void{
       const idParam = this.route.snapshot.paramMap.get('id');
       if(idParam){
-        this.titulo.set('Edite sua Receita!');
+        this.titulo.set('EDITE SUA RECEITA!');
           // this.receitaService.getById(id).subscribe(receita => {
           //   this.receita = receita;
           //   this.createReceitaForm.patchValue({

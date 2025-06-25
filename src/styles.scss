@@ -1,7 +1,15 @@
 @use './reset.scss' as *;
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto,
+  "Helvetica Neue", sans-serif;
+  background-image: url('assets/img/backGround.png');
+  background-size: cover; // makes the image cover the whole screen
+  background-repeat: no-repeat; // prevents tiling
+  background-position: center center; // centers the image
+}
 
 .hide{
   display: block;
@@ -17,4 +25,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     display: none;
   }
 
+}
+
+.blur-container {
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }

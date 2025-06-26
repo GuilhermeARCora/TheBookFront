@@ -6,7 +6,7 @@ import { By } from '@angular/platform-browser';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { AuthService } from '../../../core/services/auth/auth.service';
 
-fdescribe('HeaderComponent', () => {
+describe('HeaderComponent', () => {
   let fixture: ComponentFixture<HeaderComponent>;
   let component: HeaderComponent;
   let router: Router;

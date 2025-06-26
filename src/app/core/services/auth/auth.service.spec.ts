@@ -1,9 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 import { AuthService } from './auth.service';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
-import { LoginPayload, LoginResponse, RegisterPayload, GetUserNameResponse } from './../../../shared/types/auth';
+import {
+  HttpClientTestingModule,
+  HttpTestingController
+} from '@angular/common/http/testing';
 import { of } from 'rxjs';
+import {
+  LoginPayload,
+  LoginResponse,
+  RegisterPayload,
+  GetUserNameResponse
+} from './../../../shared/types/auth';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -23,7 +31,7 @@ describe('AuthService', () => {
 
     service = TestBed.inject(AuthService);
     httpMock = TestBed.inject(HttpTestingController);
-    spyOn(service, 'reloadPage');
+    spyOn(service, 'reloadPage'); // stub apenas reloadPage
   });
 
   afterEach(() => {
@@ -35,62 +43,131 @@ describe('AuthService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should register a user', () => {
-    const form: RegisterPayload = { nome: 'Test', email: 'test@example.com', senha: '123456', documento:"27891333017", confirmaSenha:"123456"};
+  describe('register()', () => {
+    it('deve chamar POST em permitted/cadastro', () => {
+      const form: RegisterPayload = {
+        nome: 'Test',
+        email: 'test@example.com',
+        senha: '123456',
+        documento: '27891333017',
+        confirmaSenha: '123456'
+      };
 
-    service.register(form).subscribe();
-
-    const req = httpMock.expectOne(`${service.apiUrl}permitted/cadastro`);
-    expect(req.request.method).toBe('POST');
-    req.flush(null);
+      service.register(form).subscribe();
+      const req = httpMock.expectOne(
+        `${service.apiUrl}permitted/cadastro`
+      );
+      expect(req.request.method).toBe('POST');
+      expect(req.request.body).toEqual(form);
+      req.flush(null);
+    });
   });
 
-  it('should log in and set token', () => {
-    const form: LoginPayload = { username: 'test@example.com', senha: '123456' };
-    const mockResponse: LoginResponse = { access_token: 'mock-token' };
+  describe('login()', () => {
+    it('deve logar, armazenar token e chamar getUserName()', () => {
+      const form: LoginPayload = {
+        username: 'a@b.com',
+        senha: '123'
+      };
+      const mockRes: LoginResponse = { access_token: 'abc' };
+      // spy apenas neste teste
+      const getUserSpy = spyOn(service, 'getUserName')
+        .and.returnValue(of({ nome: 'Teste' }));
 
-    spyOn(service, 'getUserName').and.returnValue(of({ nome: 'Test' }));
+      service.login(form).subscribe();
+      const req = httpMock.expectOne(
+        `${service.apiUrl}permitted/login`
+      );
+      expect(req.request.method).toBe('POST');
+      req.flush(mockRes);
 
-    service.login(form).subscribe(res => {
-      expect(service.token()).toBe('mock-token');
-      expect(localStorage.getItem('access_token')).toBe('mock-token');
+      expect(service.token()).toBe('abc');
+      expect(localStorage.getItem('access_token')).toBe('abc');
+      expect(getUserSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe('getUserName()', () => {
+    it('deve buscar e setar userName se ainda não estiver em cache', () => {
+      service.getUserName().subscribe(res => {
+        expect(res.nome).toBe('Alice');
+        expect(service.userName()).toBe('Alice');
+      });
+      const req = httpMock.expectOne(
+        `${service.apiUrl}api/usuario`
+      );
+      expect(req.request.method).toBe('GET');
+      req.flush({ nome: 'Alice' } as GetUserNameResponse);
     });
 
-    const req = httpMock.expectOne(`${service.apiUrl}permitted/login`);
-    expect(req.request.method).toBe('POST');
-    req.flush(mockResponse);
+    it('não deve chamar HTTP se já houver userName em cache', () => {
+      service.userName.set('Bob');          // prepara cache
+      service.getUserName().subscribe(res => {
+        expect(res.nome).toBe('Bob');       // retorna do cache
+      });
+      httpMock.expectNone(`${service.apiUrl}api/usuario`);
+    });
   });
 
-  it('should call logout and redirect', () => {
-    localStorage.setItem('access_token', 'test-token');
-    service.token.set('test-token');
-
-    service.logout();
-
-    expect(service.token()).toBeNull();
-    expect(localStorage.getItem('access_token')).toBeNull();
-    expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
-  });
-
-  it('should get and set user name if not already set', () => {
-    const response: GetUserNameResponse = { nome: 'Alice' };
-
-    service.getUserName().subscribe(res => {
-      expect(res.nome).toBe('Alice');
-      expect(service.userName()).toBe('Alice');
+  describe('initFromStorage()', () => {
+    beforeEach(() => {
+      // stub apenas para este bloco
+      spyOn(service, 'getUserName').and.returnValue(
+        of({ nome: 'Teste' })
+      );
     });
 
-    const req = httpMock.expectOne(`${service.apiUrl}api/usuario`);
-    expect(req.request.method).toBe('GET');
-    req.flush(response);
+    it('não faz nada se já inicializado', () => {
+      service.initialized.set(true);
+      spyOn(localStorage, 'getItem');
+      service.initFromStorage();
+      expect(localStorage.getItem).not.toHaveBeenCalled();
+      expect(service.getUserName).not.toHaveBeenCalled();
+    });
+
+    it('marca initialized e não chama getUserName se não houver token', () => {
+      service.initialized.set(false);
+      spyOn(localStorage, 'getItem').and.returnValue(null);
+      service.initFromStorage();
+      expect(service.initialized()).toBeTrue();
+      expect(service.getUserName).not.toHaveBeenCalled();
+      expect(service.token()).toBeNull();
+    });
+
+    it('marca initialized, seta token e chama getUserName se token existir', () => {
+      service.initialized.set(false);
+      spyOn(localStorage, 'getItem').and.returnValue('tok123');
+      service.initFromStorage();
+      expect(service.initialized()).toBeTrue();
+      expect(service.token()).toBe('tok123');
+      expect(service.getUserName).toHaveBeenCalled();
+    });
   });
 
-  it('should not fetch username again if already set', () => {
-    service.userName.set('Bob');
-    const obs = service.getUserName();
-    obs.subscribe(res => {
-      expect(res.nome).toBe('Bob');
+  describe('logout()', () => {
+    it('deve limpar sessão e redirecionar', () => {
+      localStorage.setItem('access_token', 'test');
+      service.token.set('test');
+      service.logout();
+      expect(service.token()).toBeNull();
+      expect(localStorage.getItem('access_token')).toBeNull();
+      expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
     });
-    httpMock.expectNone(`${service.apiUrl}api/usuario`);
+  });
+
+  describe('redirectToHome()', () => {
+    it('deve navegar para "/"', () => {
+      service.redirectToHome();
+      expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
+    });
+  });
+
+  describe('clearSession()', () => {
+    it('deve remover token e chamar reloadPage()', () => {
+      service.token.set('tok');
+      service.clearSession();
+      expect(service.token()).toBeNull();
+      expect(service.reloadPage).toHaveBeenCalled();
+    });
   });
 });

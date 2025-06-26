@@ -1,6 +1,6 @@
 import { CardComponent } from './card.component';
 
-describe('CardComponent (lógica de TS)', () => {
+describe('CardComponent', () => {
   let component: CardComponent;
 
   beforeEach(() => {

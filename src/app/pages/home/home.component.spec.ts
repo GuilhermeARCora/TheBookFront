@@ -7,7 +7,7 @@ import { AuthService } from '../../core/services/auth/auth.service';
 import { ToasterService } from '../../core/services/swal/toaster.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
-describe('HomeComponent (TS logic only)', () => {
+describe('HomeComponent', () => {
   let fixture: ComponentFixture<HomeComponent>;
   let component: HomeComponent;
   let httpMock: HttpTestingController;

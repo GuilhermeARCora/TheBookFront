@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit {
         });
       },
       error:() => {
+
         Swal.fire({
           title: "Falha no login!",
           text: "Tente novamente!",

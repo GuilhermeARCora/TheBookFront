@@ -1,0 +1,22 @@
+[
+  {
+    "nome": "Pastel",
+    "categoria": "Salgado",
+    "id": 12345678
+  },
+  {
+    "nome": "Caipirinha de Abacate",
+    "categoria": "Bebida",
+    "id": 23456789
+  },
+  {
+    "nome": "Brigadeiro",
+    "categoria": "Sobremesa",
+    "id": 34567890
+  },
+  {
+    "nome": "Bife de soja",
+    "categoria": "Fitness",
+    "id": 45678901
+  }
+]

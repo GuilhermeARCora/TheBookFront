@@ -6,7 +6,7 @@ export interface Receita{
 };
 
 export interface ReceitaCard{
-  id?: number,
+  id: number,
   nome:string,
   categoria:string
 };

@@ -13,13 +13,13 @@
             <input
               type="text"
               matInput
-              formControlName="titulo"
-              placeholder="Insira o título da Receita"
-              id="field-titulo"
+              formControlName="nome"
+              placeholder="Insira o nome da Receita"
+              id="field-nome"
             >
             <mat-label>Título</mat-label>
-            <mat-error *ngIf="hasFormError(createReceitaForm,'titulo','required')">
-              Título é <strong>obrigatório!</strong>
+            <mat-error *ngIf="hasFormError(createReceitaForm,'nome','required')">
+              Nome é <strong>obrigatório!</strong>
             </mat-error>
           </mat-form-field>
 
@@ -57,30 +57,33 @@
         <div class="d-flex justify-content-between">
 
             <button
-              class="btn btn-lg responsive-sm-btn btn-warning text-white"
+              class="btn btn-lg responsive-sm-btn btn-warning text-white d-flex align-items-center gap-1"
               id="button-voltar"
               (click)="goBack()"
               type="button"
             >
+            <mat-icon>arrow_circle_left</mat-icon>
               VOLTAR
             </button>
 
             <div class="d-flex gap-2">
 
                 <button
-                  class="btn btn-lg responsive-sm-btn btn-danger"
+                  class="btn btn-lg responsive-sm-btn btn-danger d-flex align-items-center gap-1"
                   id="button-limpar"
                   type="reset"
                 >
+                <mat-icon>cleaning_services</mat-icon>
                   LIMPAR
                 </button>
 
                 <button
-                  class="btn btn-lg responsive-sm-btn btn-success"
+                  class="btn btn-lg responsive-sm-btn btn-success d-flex align-items-center gap-1"
                   type="submit"
                   id="button-cadastrar"
                   [disabled]="!createReceitaForm.valid"
                 >
+                <mat-icon>add_circle</mat-icon>
                   CADASTRAR
                 </button>
 

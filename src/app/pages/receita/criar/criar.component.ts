@@ -10,6 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Receita } from '../../../shared/types/receita';
 import { Location } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
+import { ReceitasService } from '../../../core/services/receitas/receitas.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-criar',
@@ -30,12 +32,13 @@ export class CriarComponent implements OnInit {
     toast = inject(ToasterService);
     hasFormError = hasFormError;
     location = inject(Location);
-
     route = inject(ActivatedRoute);
     router = inject(Router);
-    receita: Receita | null = null;
+    receitasService = inject(ReceitasService);
 
+    receita: Receita | null = null;
     titulo = signal('CRIE SUA RECEITA!');
+    edit = signal<boolean>(false);
 
     ngOnInit(): void {
       this.buildForm();
@@ -44,7 +47,7 @@ export class CriarComponent implements OnInit {
 
     buildForm(): void{
       this.createReceitaForm = new FormGroup({
-        titulo: new FormControl('',[Validators.required]),
+        nome: new FormControl('',[Validators.required]),
         descricao: new FormControl('',[Validators.required]),
         categoria: new FormControl('',[Validators.required])
       })
@@ -54,6 +57,7 @@ export class CriarComponent implements OnInit {
       const idParam = this.route.snapshot.paramMap.get('id');
       if(idParam){
         this.titulo.set('EDITE SUA RECEITA!');
+        this.edit.set(true);
           // this.receitaService.getById(id).subscribe(receita => {
           //   this.receita = receita;
           //   this.createReceitaForm.patchValue({
@@ -65,6 +69,27 @@ export class CriarComponent implements OnInit {
     };
 
     onSubmit(): void{
+
+      const data = this.createReceitaForm.value as Receita;
+
+      if(this.edit()){
+
+      }else{
+        this.receitasService.createReceita(data).subscribe({
+          next:()=>{
+            this.router.navigate(['/meu-livro']).then(()=>{
+              this.toast.success("Receita criada com sucesso!");
+            })
+          },
+          error:()=>{
+            Swal.fire({
+              title: "Erro na criação da receita",
+              text:"Tente novamente",
+              icon:'error'
+            })
+          }
+        })
+      };
 
     };
 

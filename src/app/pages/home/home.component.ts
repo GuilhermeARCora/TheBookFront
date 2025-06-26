@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { CardComponent } from "../../shared/components/card/card.component";
 import { ReceitaCard } from '../../shared/types/receita';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -13,35 +14,22 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
   router = inject(Router);
   authService = inject(AuthService);
   isUserLoggedIn = this.authService.isUserLoggedIn();
   userName = this.authService.userName;
 
-  receitaModelo: ReceitaCard[] = [
-    {
-      nome: 'Pastel',
-      categoria: 'Salgado',
-      id:12345678
-    },
-    {
-      nome: 'Caipirinha de Abacate',
-      categoria: 'Bebida',
-      id:23456789
-    },
-    {
-      nome:'Brigadeiro',
-      categoria: 'Sobremesa',
-      id:34567890
-    },
-    {
-      nome:'Bife de soja',
-      categoria: 'Fitness',
-      id:45678901
-    }
-  ]
+  receitaModelo: ReceitaCard[] = [];
+  http = inject(HttpClient);
+
+  ngOnInit(): void {
+    this.http.get<ReceitaCard[]>('assets/data/receita-modelo.json')
+      .subscribe((data) => {
+        this.receitaModelo = data;
+      });
+  };
 
   editarReceita(idReceita: number): void{
 

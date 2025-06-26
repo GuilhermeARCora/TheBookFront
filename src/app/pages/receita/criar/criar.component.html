@@ -1,5 +1,5 @@
 
-<section class="container mt-3" >
+<section class="container mt-5 vh-100" >
 
     <form (ngSubmit)="onSubmit()" [formGroup]="createReceitaForm" >
 
@@ -46,7 +46,7 @@
             formControlName="descricao"
             placeholder="Insira a descrição da Receita"
             id="field-descricao"
-            rows="5"
+            rows="10"
           ></textarea>
           <mat-label>Descricao</mat-label>
           <mat-error *ngIf="hasFormError(createReceitaForm,'descricao','required')">

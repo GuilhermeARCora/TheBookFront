@@ -28,6 +28,11 @@ export const routes: Routes = [
     path:'about-us',
     loadComponent: () => import('./pages/about-us/about-us.component').then(c => c.AboutUsComponent)
   },
+  {
+    path:'meu-livro',
+    loadComponent: () => import('./pages/meu-livro/meu-livro.component').then(c => c.MeuLivroComponent),
+    canActivate: [AuthGuard]
+  },
  {
   path: 'receita',
   children: [
@@ -46,11 +51,6 @@ export const routes: Routes = [
       canActivate: [AuthGuard]
     }
    ]
-  },
-  {
-    path:'meu-livro/:id',
-    loadComponent: () => import('./pages/meu-livro/meu-livro.component').then(c => c.MeuLivroComponent),
-    canActivate: [AuthGuard]
   },
   {
     path:'not-found',

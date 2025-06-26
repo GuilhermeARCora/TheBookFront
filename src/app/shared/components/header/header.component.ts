@@ -17,8 +17,7 @@ export class HeaderComponent{
   isUserLoggedIn = this.authService.isUserLoggedIn();
 
   redirectMeuLivro(): void{
-    const id = 123;
-    this.router.navigate(['/meu-livro', id])
+    this.router.navigate(['/meu-livro'])
   };
 
   redirectCriarReceita(): void{

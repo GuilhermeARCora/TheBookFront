@@ -1,18 +1,30 @@
-<section class="container d-flex my-4">
+<section class="d-flex justify-content-center ">
+  <mat-card class="card" [ngClass]="categoria">
 
-    <mat-card class="shadow-lg d-flex flex-column p-5">
-
+    <div class="card-content">
       <mat-card-header>
-        <mat-card-title>TITULO RECEITA</mat-card-title>
+        <mat-card-title>
+          <a
+            (click)="outraAcao()"
+            class="card-link"
+            [ngClass]="categoria"
+          >
+            {{ nome }}
+          </a>
+        </mat-card-title>
       </mat-card-header>
+    </div>
 
-      <mat-card-footer>
-        <button>EDITAR</button>
-        <button>VER</button>
-      </mat-card-footer>
+    <div class="card-footer">
+      <button
+        type="button"
+        (click)="inserirAcao()"
+        class="btn btn-sm btn-outline-dark fw-bolder blur-container d-flex align-items-center"
+        style="width:40px; height: 40px;"
+      >
+         <mat-icon>mode_edit</mat-icon>
+      </button>
+    </div>
 
-    </mat-card>
-
+  </mat-card>
 </section>
-
-

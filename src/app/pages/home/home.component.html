@@ -1,15 +1,46 @@
+<section class="container d-flex justify-content-center align-items-center flex-column gap-4 my-5">
 
-<section class="container d-flex justify-content-center align-items-center flex-column">
-
-  <h1 class="blur-container">Bem vindo {{authService.userName() || 'Visitante'}}!</h1>
-
-  <div>
-    <app-card></app-card>
+  <div class="blur-container text-center">
+    <h1>Bem vindo, {{userName() || 'Visitante'}}!</h1>
+    <h2>Guarde suas receitas!</h2>
+    <p *ngIf="!isUserLoggedIn">Faça login para poder criar e visualizar suas receitas!</p>
   </div>
 
-  <div>
-    <button>Veja suas receitas</button>
-    <button *ngIf="isUserLoggedIn" >Crie suas receitas</button>
-  </div>
+  <!-- Novo container centralizado -->
+  <div class="d-flex flex-column align-items-center" style="max-width: 70rem; width: 100%;">
 
+    <!-- Cards -->
+    <div class="d-flex flex-wrap gap-3 justify-content-center mb-5">
+      <div *ngFor="let receitas of receitaModelo">
+        <app-card
+          [id]="receitas.id!"
+          [categoria]="receitas.categoria"
+          [nome]="receitas.nome"
+          (acao1)="editarReceita($event)"
+          (acao2)="irParaReceita($event)"
+        ></app-card>
+      </div>
+    </div>
+
+    <!-- Botões alinhados à esquerda -->
+    <div class="d-flex flex-row gap-3 align-self-center">
+      <button
+         class="btn btn-info btn-lg d-flex align-items-center gap-1"
+         [disabled]="!isUserLoggedIn"
+         (click)="redirectMeuLivro()"
+      >
+      <mat-icon>search</mat-icon>
+         Veja suas receitas
+      </button>
+      <button
+        class="btn btn-success btn-lg d-flex align-items-center gap-1"
+        [disabled]="!isUserLoggedIn"
+        (click)="redirectCriarReceita()"
+      >
+      <mat-icon>add_circle</mat-icon>
+        Crie suas receitas
+      </button>
+    </div>
+
+  </div>
 </section>

@@ -3,7 +3,7 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { RegisterPayload } from '../../../shared/types/auth';
 
@@ -31,8 +31,10 @@ export class AuthService {
         const token = res.access_token
         this.token.set(token)
         localStorage.setItem("access_token", token);
-        this.getUserName();
-      })
+      }),
+      tap(() => {
+      this.getUserName().subscribe();
+    })
     )
   };
 
@@ -68,7 +70,6 @@ export class AuthService {
       this.getUserName().subscribe();
     }
   };
-
 
   clearSession(): void{
     this.token.set(null);

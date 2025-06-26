@@ -1,0 +1,89 @@
+.card {
+  width: 250px;
+  height: 250px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.card-link {
+
+  font-size: 2rem;
+  font-weight: 1000;
+  text-decoration: none;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+  line-height: 1.5;
+  padding-bottom: 1px;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.card-link:hover {
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+  text-decoration: none;
+}
+
+.card-footer {
+  position: absolute;
+  background: none;
+  border-top: none;
+  padding: 0;
+  bottom: 0.5rem;
+  right: 0.5rem;
+}
+
+.Sobremesa {
+  background-image: url('../../../../assets/img/sobremesa.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.Salgado {
+  background-image: url('../../../../assets/img/salgada.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.Bebida {
+  background-image: url('../../../../assets/img/bebida.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.Fitness{
+  background-image: url('../../../../assets/img/fitness.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}

@@ -20,10 +20,8 @@ export class AppComponent implements OnInit {
   hideHeader = signal<boolean>(true);
   hideFooter = signal<boolean>(true);
 
-  // Rotas que ocultam apenas o header
   private headerExcludedRoutes = ['/login', '/not-found', '/404', '/register'];
 
-  // Rotas que ocultam apenas o footer
   private footerExcludedRoutes = ['/not-found', '/404'];
 
   ngOnInit() {

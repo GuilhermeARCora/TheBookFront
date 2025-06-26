@@ -4,6 +4,10 @@ export function cpfValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const cpf = control.value?.replace(/\D/g, '');
 
+     if (!cpf || cpf.trim() === '') {
+      return null;
+    };
+
     if (!cpf || cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) {
       return { cpfInvalid: true };
     }

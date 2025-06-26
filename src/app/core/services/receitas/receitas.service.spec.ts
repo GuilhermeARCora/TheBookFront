@@ -6,7 +6,7 @@ import {
 import { ReceitasService } from './receitas.service';
 import { BehaviorSubject } from 'rxjs';
 
-fdescribe('ReceitasService', () => {
+describe('ReceitasService', () => {
   let service: ReceitasService;
   let httpMock: HttpTestingController;
 

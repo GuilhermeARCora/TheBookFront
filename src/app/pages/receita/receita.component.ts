@@ -25,7 +25,6 @@ export class ReceitaComponent implements OnInit {
   private service = inject(ReceitasService);
   private location = inject(Location);
 
-  /** sinal que guarda a receita carregada */
   receita = signal<any | null>(null);
 
   ngOnInit(): void {
@@ -33,14 +32,12 @@ export class ReceitaComponent implements OnInit {
     this.service.getReceitaById(id).subscribe({
       next: r => this.receita.set(r),
       error: () => {
-        // aqui você pode tratar erros (404, etc.)
         this.receita.set(null);
       }
     });
   }
 
   goBack(): void {
-    // volta à rota anterior
     this.location.back();
   }
 }

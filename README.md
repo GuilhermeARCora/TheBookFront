@@ -15,11 +15,8 @@
 ### Back-end
 - **Spring Boot 3**
 - **Java 21**
-- **Spring Security + JWT**
-- **MapStruct**
+- **Spring Security**
 - **PostgreSQL**
-- **Lombok**
-- **Amazon SES (e-mail)**
 
 ---
 

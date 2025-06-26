@@ -1,0 +1,32 @@
+.recipe-card {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.recipe-title {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.recipe-category-list {
+  margin-left: auto;
+}
+
+.recipe-content {
+  margin: 1.5rem 0;
+  line-height: 1.6;
+  white-space: pre-line; // mantém quebras de linha no texto longo
+}
+
+.recipe-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.not-found {
+  text-align: center;
+  margin-top: 3rem;
+}

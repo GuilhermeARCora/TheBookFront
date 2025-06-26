@@ -1,0 +1,31 @@
+.blur-container h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1e1e1e;
+  text-shadow: 2px 2px 0 white;
+  margin-bottom: 0.5rem;
+}
+
+.category-toggle {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+
+  .mat-button-toggle-group {
+    background: #f5f5f5;
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+  }
+
+  .mat-button-toggle {
+    text-transform: none;
+    font-weight: 500;
+    border-radius: 0.25rem;
+  }
+
+  .mat-button-toggle-checked {
+    background-color: #007bff !important;
+    color: white !important;
+  }
+}

@@ -1,1 +1,36 @@
-<p>receita works!</p>
+<ng-container *ngIf="receita(); else notFound">
+  <mat-card class="recipe-card">
+
+    <mat-card-header class="d-flex justify-content-between mx-5">
+      <mat-card-title class="recipe-title">
+        {{ receita()?.titulo }}
+      </mat-card-title>
+        <mat-chip color="primary" selected>
+          {{ receita()?.categoria }}
+        </mat-chip>
+    </mat-card-header>
+
+    <mat-card-content class="recipe-content">
+      <p>{{ receita()?.receita }}</p>
+    </mat-card-content>
+
+    <mat-card-actions class="recipe-actions">
+       <button
+              class="btn btn-warning text-white d-flex align-items-center gap-1"
+              id="button-voltar"
+              (click)="goBack()"
+              type="button"
+            >
+            <mat-icon>arrow_circle_left</mat-icon>
+              VOLTAR
+            </button>
+    </mat-card-actions>
+  </mat-card>
+</ng-container>
+
+<ng-template #notFound>
+  <div class="not-found">
+    <p>Receita não encontrada.</p>
+    <button mat-button (click)="goBack()">Voltar</button>
+  </div>
+</ng-template>

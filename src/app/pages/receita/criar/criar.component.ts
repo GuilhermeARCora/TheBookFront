@@ -1,20 +1,20 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToasterService } from '../../../core/services/swal/toaster.service';
 import { hasFormError } from '../../../shared/utils/helpers';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Receita } from '../../../shared/types/receita';
-import { Location } from '@angular/common';
-import { MatSelectModule } from '@angular/material/select';
 import { ReceitasService } from '../../../core/services/receitas/receitas.service';
+import { Receita } from '../../../shared/types/receita';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-criar',
+  standalone: true,
   imports: [
     ReactiveFormsModule,
     CommonModule,
@@ -24,82 +24,102 @@ import Swal from 'sweetalert2';
     MatSelectModule
   ],
   templateUrl: './criar.component.html',
-  styleUrl: './criar.component.scss'
+  styleUrls: ['./criar.component.scss']
 })
 export class CriarComponent implements OnInit {
 
-    createReceitaForm!: FormGroup;
-    toast = inject(ToasterService);
-    hasFormError = hasFormError;
-    location = inject(Location);
-    route = inject(ActivatedRoute);
-    router = inject(Router);
-    receitasService = inject(ReceitasService);
+  toast = inject(ToasterService);
+  hasFormError = hasFormError;
+  createReceitaForm!: FormGroup;
+  isEdit = false;
+  receitaId?: number;
+  titulo = signal<string>('Cadastrar Receita');
+  location = inject(Location);
+  fb = inject(FormBuilder);
+  route = inject(ActivatedRoute);
+  service = inject(ReceitasService);
+  router = inject(Router);
 
-    receita: Receita | null = null;
-    titulo = signal('CRIE SUA RECEITA!');
-    edit = signal<boolean>(false);
+  ngOnInit(): void {
+    this.buildForm();
+    this.checkEditMode();
+  }
 
-    ngOnInit(): void {
-      this.buildForm();
-      this.isEdit();
-    };
+  buildForm(): void {
+    this.createReceitaForm = this.fb.group({
+      nome: ['', Validators.required],
+      categoria: ['', Validators.required],
+      descricao: ['', Validators.required]
+    });
+  }
 
-    buildForm(): void{
-      this.createReceitaForm = new FormGroup({
-        nome: new FormControl('',[Validators.required]),
-        descricao: new FormControl('',[Validators.required]),
-        categoria: new FormControl('',[Validators.required])
-      })
-    };
+  checkEditMode(): void {
+    const idParam = this.route.snapshot.paramMap.get('id');
+    if (idParam) {
+      this.enterEditMode(+idParam);
+    }
+  }
 
-    isEdit(): void{
-      const idParam = this.route.snapshot.paramMap.get('id');
-      if(idParam){
-        this.titulo.set('EDITE SUA RECEITA!');
-        this.edit.set(true);
-          // this.receitaService.getById(id).subscribe(receita => {
-          //   this.receita = receita;
-          //   this.createReceitaForm.patchValue({
-          //     titulo: receita.titulo,
-          //     descricao: receita.descricao
-          //   });
-          // });
+  enterEditMode(id: number): void {
+    this.isEdit = true;
+    this.receitaId = id;
+    this.titulo.set('Editar Receita');
+    this.loadReceita(id);
+  }
+
+  loadReceita(id: number): void {
+    this.service.getReceitaById(id)
+      .subscribe({
+        next: (receita: any) => {
+          // aqui fazemos o patchValue de forma explícita
+          this.createReceitaForm.patchValue({
+            nome: receita.titulo,
+            categoria: receita.categoria,
+            descricao: receita.receita
+          });
+        },
+        error: err => {
+          console.error('Erro ao carregar receita:', err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro',
+            text: 'Não foi possível carregar os dados da receita para edição.'
+          });
+        }
+      });
+  }
+
+  onSubmit(): void {
+    if (this.createReceitaForm.invalid) {
+      this.createReceitaForm.markAllAsTouched();
+      return;
+    }
+
+    const payload: Receita = this.createReceitaForm.value;
+    const request$ = this.isEdit
+      ? this.service.editReceita(payload, this.receitaId!)
+      : this.service.createReceita(payload);
+
+    request$.subscribe({
+      next: () => {
+        this.toast.success(this.isEdit ? 'Receita editada!' : 'Receita criada!');
+        this.router.navigateByUrl('/meu-livro');
+      },
+      error: err => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Falha',
+          text: 'Ocorreu um erro ao salvar a receita.'
+        });
       }
-    };
+    });
+  }
 
-    onSubmit(): void{
-
-      const data = this.createReceitaForm.value as Receita;
-
-      if(this.edit()){
-
-      }else{
-        this.receitasService.createReceita(data).subscribe({
-          next:()=>{
-            this.router.navigate(['/meu-livro']).then(()=>{
-              this.toast.success("Receita criada com sucesso!");
-            })
-          },
-          error:()=>{
-            Swal.fire({
-              title: "Erro na criação da receita",
-              text:"Tente novamente",
-              icon:'error'
-            })
-          }
-        })
-      };
-
-    };
-
-    goBack(): void {
-      if (window.history.length > 1) {
-        this.location.back();
-      } else {
-        this.router.navigateByUrl('/');
-      }
-    };
-
-
-};
+  goBack(): void {
+    if (window.history.length > 1) {
+      this.location.back();
+    } else {
+      this.router.navigateByUrl('/');  // rota padrão
+    }
+  }
+}

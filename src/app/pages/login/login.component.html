@@ -3,7 +3,7 @@
   <mat-card class="d-flex align-items-center m-auto h-auto p-5 shadow-lg position-relative" style="max-width: 600px; width: 100%;">
 
     <div class="d-flex justify-content-start">
-      <a routerLink="/" style="cursor: pointer;">
+      <a id="link-voltar-inicio" routerLink="/" style="cursor: pointer;">
         <img src="assets/img/logo.webp" alt="logo" width="50px" height="auto" class="position-absolute top-0 start-0 m-3">
       </a>
     </div>
@@ -50,6 +50,7 @@
                     [attr.aria-label]="'Hide password'"
                     [attr.aria-pressed]="hide()"
                     style="margin-right: 0.4em;"
+                    id="button-mostrar-senha"
                   >
                     <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
                   </button>

@@ -29,6 +29,7 @@
          class="btn btn-info btn-lg d-flex align-items-center gap-1"
          [disabled]="!isUserLoggedIn"
          (click)="redirectMeuLivro()"
+         id="button-veja"
       >
       <mat-icon>search</mat-icon>
          Veja suas receitas
@@ -37,6 +38,7 @@
         class="btn btn-success btn-lg d-flex align-items-center gap-1"
         [disabled]="!isUserLoggedIn"
         (click)="redirectCriarReceita()"
+        id="button-crie"
       >
       <mat-icon>add_circle</mat-icon>
         Crie suas receitas

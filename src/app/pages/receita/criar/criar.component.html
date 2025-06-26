@@ -17,7 +17,7 @@
               placeholder="Insira o nome da Receita"
               id="field-nome"
             >
-            <mat-label>Título</mat-label>
+            <mat-label>Nome</mat-label>
             <mat-error *ngIf="hasFormError(createReceitaForm,'nome','required')">
               Nome é <strong>obrigatório!</strong>
             </mat-error>
@@ -80,11 +80,11 @@
                 <button
                   class="btn btn-lg responsive-sm-btn btn-success d-flex align-items-center gap-1"
                   type="submit"
-                  id="button-cadastrar"
+                  id="button-confirmar"
                   [disabled]="!createReceitaForm.valid"
                 >
-                <mat-icon>add_circle</mat-icon>
-                  CADASTRAR
+                <mat-icon>check_circle</mat-icon>
+                  CONFIRMAR
                 </button>
 
             </div>

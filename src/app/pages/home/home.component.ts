@@ -7,6 +7,7 @@ import { ReceitaCard } from '../../shared/types/receita';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClient } from '@angular/common/http';
+import { ToasterService } from '../../core/services/swal/toaster.service';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +21,7 @@ export class HomeComponent implements OnInit {
   authService = inject(AuthService);
   isUserLoggedIn = this.authService.isUserLoggedIn();
   userName = this.authService.userName;
+  toast = inject(ToasterService);
 
   receitaModelo: ReceitaCard[] = [];
   http = inject(HttpClient);
@@ -40,9 +42,8 @@ export class HomeComponent implements OnInit {
 
   irParaReceita(idReceita:number):void{
 
-    if(!idReceita) return console.warn('Esse id de receita nao existe', idReceita);
+    this.toast.info("Apenas ilustrativas.<br> Cadastre as suas!")
 
-    this.router.navigate(['receita/ver-receita/', idReceita]);
   };
 
   redirectCriarReceita(): void{

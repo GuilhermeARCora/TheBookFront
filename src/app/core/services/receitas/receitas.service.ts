@@ -41,8 +41,14 @@ export class ReceitasService {
       });
   }
 
-  // deleteReceita(id:number): void{
-
-  // };
+  deleteReceita(id:number): Observable<void>{
+    return this.http.delete<void>(`${this.apiUrl}api/receita/${id}`).pipe(
+      tap(()=>{
+        const receitasAtual = this.receitasSubject.value;
+        const novaLista = receitasAtual.filter(r => r.id !== id);
+        this.receitasSubject.next(novaLista);
+      })
+    )
+  };
 
 };

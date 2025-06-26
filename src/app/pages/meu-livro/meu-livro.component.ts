@@ -89,15 +89,17 @@ export class MeuLivroComponent implements OnInit{
       confirmButtonText: "Sim, delete!"
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Deletado!",
-          text: "Sua receita foi deletada.",
-          icon: "success"
-        });
+        this.receitasService.deleteReceita(idReceita).subscribe({
+          next:()=>{
+            Swal.fire({
+              title: "Deletado!",
+              text: "Sua receita foi removida.",
+              icon: "success"
+            });
+          }
+        })
       }
     });
-
-    //subscribe aqui
 
   };
 

@@ -38,21 +38,22 @@
 - Node.js v18+
 - Angular CLI (`npm install -g @angular/cli`)
 
-### 💻 Frontend
+## 💻 Frontend
 
-# Clone o repositório
+### Clone o repositório
 git clone https://github.com/GuilhermeARCora/TheBookFront.git
 
-# Instale as dependências
+### Instale as dependências
 npm install
 
-# Rode a aplicação
+### Rode a aplicação
 ng serve
 
-### ▶️ Backend
+## ▶️ Backend
 
 ```bash
 # Veja o repositório feito por João Luís Meireles, responsável pela API.
+```
 https://github.com/JLMEIRELES/the-book-api
 
 

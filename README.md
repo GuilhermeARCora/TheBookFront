@@ -1,59 +1,36 @@
 # 📖 The Book
 
-**The Book** é uma aplicação web voltada para entusiastas da culinária. Seu objetivo é oferecer uma plataforma simples, moderna e envolvente onde usuários podem **compartilhar, visualizar e gerenciar receitas** com facilidade. Ideal para quem ama cozinhar, trocar ideias e descobrir novos pratos!
+**The Book** is a college project created to practice unit tests and end-to-end (E2E) automated interface tests with Cypress. Additionally, I was able to work with Angular 19 and many related front-end technologies and practices.
 
 ---
 
-## 🚀 Tecnologias Utilizadas
+## 🚀 Used technologies
 
-### Front-end
 - **Angular 19** 
 - **Angular Material**
 - **Bootstrap 5**
 - **SweetAlert2**
-
-### Back-end
-- **Spring Boot 3**
-- **Java 21**
-- **Spring Security**
-- **PostgreSQL**
-
 ---
 
-## 🧩 Funcionalidades Principais
-
-- Cadastro e autenticação de usuários com token JWT.
-- Compartilhamento de receitas (CRUD completo).
-- Filtros por categorias (bebidas, sobremesas, fitness etc.).
-- Confirmação de conta via e-mail.
-- Validações visuais e retorno de erros da API tratados com elegância.
-- UI responsiva com layout otimizado para mobile e desktop.
-
----
-
-## 🛠️ Como Rodar o Projeto
-
-### 🔽 Pré-requisitos
+## 🛠️ To run the project you will require:
 
 - Node.js v18+
-- Angular CLI (`npm install -g @angular/cli`)
+- Angular CLI 19
 
 ## 💻 Frontend
 
-### Clone o repositório
+### Clone the rep
 git clone https://github.com/GuilhermeARCora/TheBookFront.git
 
-### Instale as dependências
+### Install dependencies
 npm install
 
-### Rode a aplicação
+### run application
 ng serve
 
 ## ▶️ Backend
 
-```bash
-# Veja o repositório feito por João Luís Meireles, responsável pela API.
-```
+### API Consumed by the Project
 https://github.com/JLMEIRELES/the-book-api
 
 
